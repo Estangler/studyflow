@@ -29,37 +29,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }));
   }
 
-  function handleLogin(e: React.SubmitEvent) {
-    e.preventDefault();
-
-    if (!credentials.email.trim() || !formData.email.includes("@"))
-      return alert("Você precisa  digitar um email válido para fazer o login.");
-
-    if (!credentials.password.trim() || formData.password.length < 8)
-      return alert("Você precisa  digitar um email válido para fazer o login.");
-
-    if (!users.some((user) => user.email === credentials.email)) {
-      return alert(
-        "Seu email não está cadastrado na nossa base de dados. Crie uma conta para continuar.",
-      );
-    }
-
-    if (
-      users.some((user) => user.email === credentials.email) &&
-      !users.some((user) => user.password === credentials.password)
-    ) {
-      return alert("Senha incorreta.");
-    }
-
-    alert("Login efetuado.");
-  }
-
-  function handleCredentialsInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-
-    setCredentials((prev) => ({ ...prev, [name]: value }));
-  }
-
   function createUser(e: React.SubmitEvent) {
     e.preventDefault();
 
@@ -81,10 +50,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       password: formData.password,
     };
 
-    alert(
-      `Bem vindo, ${formData.name}! Mova para a página de login para acessar a sua conta fresquinha.`,
-    );
-
     setUsers((prevUsers) => [...prevUsers, newUser]);
     setFormData({
       name: "",
@@ -96,6 +61,38 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     saveStorage(STORAGE_KEYS.USERS, users);
   }, [users]);
+
+  function handleCredentialsInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+
+    setCredentials((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleLogin(e: React.SubmitEvent) {
+    e.preventDefault();
+
+    if (!credentials.email.trim() || !credentials.email.includes("@"))
+      return alert("Você precisa  digitar um email válido para fazer o login.");
+
+    if (!credentials.password.trim() || credentials.password.length < 8)
+      return alert(
+        "Você precisa  digitar uma senha válida para fazer o login.",
+      );
+
+    const findUser = users.find((user) => user.email === credentials.email);
+
+    if (!findUser) {
+      return alert("Usuário não encontrado.");
+    }
+
+    if (findUser.password !== credentials.password) {
+      return alert("Senha incorreta.");
+    }
+
+    alert("Login realizado com sucesso.");
+  }
+
+  console.log(users);
 
   return (
     <AuthContext.Provider
