@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Register() {
+  const { createUser, handleInputChange, formData } = useAuth();
   return (
     <div>
       <header>
@@ -8,13 +10,16 @@ export default function Register() {
         <Link to={"/"}>Faça login.</Link>
       </header>
       <main>
-        <form>
+        <form onSubmit={createUser}>
           <label>
             <p>
               Nome completo <span className="text-red-600">*</span>
             </p>
             <input
               type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
               placeholder="Ex: João da Silva Sauro"
               className="border px-2"
             />
@@ -26,6 +31,9 @@ export default function Register() {
             </p>
             <input
               type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              name="email"
               placeholder="Ex: joao@email.com"
               className="border px-2"
             />
@@ -37,6 +45,9 @@ export default function Register() {
             </p>
             <input
               type="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              name="password"
               placeholder="********"
               className="border px-2"
             />
