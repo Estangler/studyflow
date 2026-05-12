@@ -1,6 +1,9 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { AuthContext } from "./AuthContext";
 import type { IUser, UserCredentials } from "../types/users";
+import { saveStorage } from "../storage/saveStorage";
+import { STORAGE_KEYS } from "../storage/storageKeys";
+import { getStorage } from "../storage/getStorage";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [formData, setFormData] = useState<Omit<IUser, "id">>({
@@ -10,6 +13,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   const [users, setUsers] = useState<IUser[]>([]);
+  const [userData, setUserData] = useState(() => {
+    const savedData = getStorage(STORAGE_KEYS.USER, users);
+
+    return savedData ? JSON.parse(savedData) : [];
+  });
 
   const [credentials, setCredentials] = useState<UserCredentials>({
     email: "",
@@ -22,6 +30,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       ...prev,
       [name]: value,
     }));
+  }
+
+  function handleCredentialsInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+
+    setCredentials((prev) => ({ ...prev, [name]: value }));
   }
 
   function createUser(e: React.SubmitEvent) {
@@ -45,6 +59,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       password: formData.password,
     };
 
+    alert(
+      `Bem vindo, ${formData.name}! Mova para a página de login para acessar a sua conta fresquinha.`,
+    );
+
     setUsers((prevUsers) => [...prevUsers, newUser]);
     setFormData({
       name: "",
@@ -53,9 +71,20 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  useEffect(() => {
+    saveStorage(STORAGE_KEYS.USER, users);
+  }, [users]);
+
   return (
     <AuthContext.Provider
-      value={{ users, formData, createUser, handleInputChange }}
+      value={{
+        users,
+        formData,
+        credentials,
+        createUser,
+        handleInputChange,
+        handleCredentialsInput,
+      }}
     >
       {children}
     </AuthContext.Provider>
