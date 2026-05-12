@@ -4,8 +4,8 @@ import { useState } from "react";
 import type { IUser } from "../types/context";
 
 export default function RegisterForm() {
-  const { createUser } = useAuth();
-  const [formData, setFormData] = useState<Omit<IUser, "id">>({
+  const { register } = useAuth();
+  const [formData, setFormData] = useState<Omit<IUser, "id" | "isLoggedIn">>({
     name: "",
     email: "",
     password: "",
@@ -21,7 +21,7 @@ export default function RegisterForm() {
 
   function onSubmit(e: React.SubmitEvent) {
     e.preventDefault();
-    createUser(formData);
+    register(formData);
     setFormData({
       name: "",
       email: "",

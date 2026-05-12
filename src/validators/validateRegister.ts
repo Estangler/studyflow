@@ -1,7 +1,7 @@
 import type { IUser } from "../types/context";
 
 export default function validateRegister(
-  formData: Omit<IUser, "id">,
+  formData: Omit<IUser, "id" | "isLoggedIn">,
   users: IUser[],
 ) {
   if (!formData.name.trim()) return alert("Digite um nome válido.");

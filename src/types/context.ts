@@ -8,10 +8,11 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  isLoggedIn: boolean;
 }
 
 export interface IContext {
   users: IUser[];
-  createUser: (formData: Omit<IUser, "id">) => void;
+  register: (formData: Omit<IUser, "id" | "isLoggedIn">) => void;
   login: (credentials: UserCredentials) => void;
 }

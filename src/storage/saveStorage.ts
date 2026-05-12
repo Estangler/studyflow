@@ -1,5 +1,3 @@
-import type { IUser } from "../types/users";
-
-export function saveStorage(key: string, value: IUser[]) {
+export function saveStorage<T>(key: string, value: T) {
   localStorage.setItem(key, JSON.stringify(value));
 }

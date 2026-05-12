@@ -12,7 +12,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return getStorage(STORAGE_KEYS.USERS, []);
   });
 
-  function createUser(formData: Omit<IUser, "id">) {
+  function register(formData: Omit<IUser, "id" | "isLoggedIn">) {
     validateRegister(formData, users);
 
     const newUser: IUser = {
@@ -20,6 +20,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       name: formData.name,
       email: formData.email,
       password: formData.password,
+      isLoggedIn: false,
     };
 
     setUsers((prevUsers) => [...prevUsers, newUser]);
@@ -38,7 +39,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         users,
-        createUser,
+        register,
         login,
       }}
     >
