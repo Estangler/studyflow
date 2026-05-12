@@ -12,7 +12,13 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return getStorage(STORAGE_KEYS.USERS, []);
   });
 
-  function register(formData: Omit<IUser, "id" | "isLoggedIn">) {
+  const [currentUser, setCurrentUser] = useState<IUser | null>(() => {
+    return getStorage(STORAGE_KEYS.CURRENT_USER, null);
+  });
+
+  const isAuthenticated = !!currentUser;
+
+  function register(formData: Omit<IUser, "id">) {
     validateRegister(formData, users);
 
     const newUser: IUser = {
@@ -20,7 +26,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       name: formData.name,
       email: formData.email,
       password: formData.password,
-      isLoggedIn: false,
     };
 
     setUsers((prevUsers) => [...prevUsers, newUser]);
@@ -31,8 +36,24 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, [users]);
 
   function login(credentials: UserCredentials) {
+    const foundUser = users.find(
+      (user) =>
+        user.email === credentials.email &&
+        user.password === credentials.password,
+    );
+
+    if (!foundUser) {
+      return false;
+    }
+
+    setCurrentUser(foundUser);
+    saveStorage(STORAGE_KEYS.CURRENT_USER, foundUser);
     validateLogin(credentials, users);
-    alert("Login realizado com sucesso.");
+  }
+
+  function logout() {
+    setCurrentUser(null);
+    saveStorage(STORAGE_KEYS.CURRENT_USER, null);
   }
 
   return (
@@ -41,6 +62,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         users,
         register,
         login,
+        currentUser,
+        logout,
+        isAuthenticated,
       }}
     >
       {children}

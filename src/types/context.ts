@@ -8,11 +8,13 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  isLoggedIn: boolean;
 }
 
 export interface IContext {
   users: IUser[];
-  register: (formData: Omit<IUser, "id" | "isLoggedIn">) => void;
+  register: (formData: Omit<IUser, "id">) => void;
   login: (credentials: UserCredentials) => void;
+  currentUser: Omit<IUser, "password"> | null;
+  isAuthenticated: boolean;
+  logout: () => void;
 }

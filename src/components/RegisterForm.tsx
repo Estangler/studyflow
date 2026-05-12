@@ -5,7 +5,7 @@ import type { IUser } from "../types/context";
 
 export default function RegisterForm() {
   const { register } = useAuth();
-  const [formData, setFormData] = useState<Omit<IUser, "id" | "isLoggedIn">>({
+  const [formData, setFormData] = useState<Omit<IUser, "id">>({
     name: "",
     email: "",
     password: "",
