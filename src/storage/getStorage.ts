@@ -1,10 +1,8 @@
-import type { IUser } from "../types/users";
-
-export function getStorage(key: string, value: IUser[]) {
+export function getStorage<T>(key: string, InitialValue: T): T {
   const item = localStorage.getItem(key);
 
   if (!item) {
-    return value;
+    return InitialValue;
   }
 
   return JSON.parse(item);

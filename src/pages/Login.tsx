@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 export default function Login() {
-  const { handleCredentialsInput, credentials } = useAuth();
+  const { handleCredentialsInput, credentials, handleLogin } = useAuth();
   return (
     <div>
       <h1>Login</h1>
       <main>
-        <form>
+        <form onSubmit={handleLogin}>
           <label>
             <p>
               Email <span className="text-red-600">*</span>

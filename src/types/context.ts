@@ -7,4 +7,5 @@ export interface IContext {
   createUser: (e: React.SubmitEvent) => void;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCredentialsInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLogin: (e: React.SubmitEvent) => void;
 }
