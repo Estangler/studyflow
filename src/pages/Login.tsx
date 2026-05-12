@@ -35,8 +35,10 @@ export default function Login() {
               className="border px-2"
             />
           </label>
+          <button className="w-50 h-10 px-2 py-1 border mt-5 block">
+            Entrar
+          </button>
         </form>
-        <button className="w-50 h-10 px-2 py-1 border mt-5">Entrar</button>
       </main>
       <nav>
         <p>Ainda não possuí uma conta?</p>
