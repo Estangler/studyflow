@@ -1,4 +1,4 @@
-import type { IUser } from "../types/users";
+import type { IUser } from "../types/context";
 
 export default function validateRegister(
   formData: Omit<IUser, "id">,

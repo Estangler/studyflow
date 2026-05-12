@@ -1,4 +1,4 @@
-import type { IUser, UserCredentials } from "../types/users";
+import type { IUser, UserCredentials } from "../types/context";
 
 export function validateLogin(credentials: UserCredentials, users: IUser[]) {
   if (!credentials.email.trim() || !credentials.email.includes("@"))
