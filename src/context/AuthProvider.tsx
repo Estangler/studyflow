@@ -12,11 +12,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     password: "",
   });
 
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [userData, setUserData] = useState(() => {
-    const savedData = getStorage(STORAGE_KEYS.USER, users);
-
-    return savedData ? JSON.parse(savedData) : [];
+  const [users, setUsers] = useState<IUser[]>(() => {
+    return getStorage(STORAGE_KEYS.USERS, []);
   });
 
   const [credentials, setCredentials] = useState<UserCredentials>({
@@ -30,6 +27,31 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       ...prev,
       [name]: value,
     }));
+  }
+
+  function handleLogin(e: React.SubmitEvent) {
+    e.preventDefault();
+
+    if (!credentials.email.trim() || !formData.email.includes("@"))
+      return alert("Você precisa  digitar um email válido para fazer o login.");
+
+    if (!credentials.password.trim() || formData.password.length < 8)
+      return alert("Você precisa  digitar um email válido para fazer o login.");
+
+    if (!users.some((user) => user.email === credentials.email)) {
+      return alert(
+        "Seu email não está cadastrado na nossa base de dados. Crie uma conta para continuar.",
+      );
+    }
+
+    if (
+      users.some((user) => user.email === credentials.email) &&
+      !users.some((user) => user.password === credentials.password)
+    ) {
+      return alert("Senha incorreta.");
+    }
+
+    alert("Login efetuado.");
   }
 
   function handleCredentialsInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -72,7 +94,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    saveStorage(STORAGE_KEYS.USER, users);
+    saveStorage(STORAGE_KEYS.USERS, users);
   }, [users]);
 
   return (
@@ -84,6 +106,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         createUser,
         handleInputChange,
         handleCredentialsInput,
+        handleLogin,
       }}
     >
       {children}
