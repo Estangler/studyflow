@@ -1,11 +1,17 @@
-import type { IUser, UserCredentials } from "./users";
+export interface UserCredentials {
+  email: string;
+  password: string;
+}
+
+export interface IUser {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
 
 export interface IContext {
   users: IUser[];
-  formData: Omit<IUser, "id">;
-  credentials: UserCredentials;
-  createUser: (e: React.SubmitEvent) => void;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCredentialsInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleLogin: (e: React.SubmitEvent) => void;
+  createUser: (formData: Omit<IUser, "id">) => void;
+  login: (credentials: UserCredentials) => void;
 }
