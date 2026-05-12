@@ -54,7 +54,7 @@ export default function LoginForm() {
               className="border px-2"
             />
           </label>
-          <button className="w-50 h-10 px-2 py-1 border mt-5 block">
+          <button className="w-50 h-10 px-2 py-1 border mt-5 block cursor-pointer hover:opacity-70">
             Entrar
           </button>
         </form>

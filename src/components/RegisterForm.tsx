@@ -83,7 +83,9 @@ export default function RegisterForm() {
             <p>Mínimo 8 caracteres.</p>
           </label>
 
-          <button className="w-50 h-10 px-2 py-1 border">Criar conta</button>
+          <button className="w-50 h-10 px-2 py-1 border mt-5 block cursor-pointer hover:opacity-70">
+            Criar conta
+          </button>
         </form>
       </main>
       <footer></footer>
