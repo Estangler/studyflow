@@ -5,42 +5,49 @@ import { STORAGE_KEYS } from "../storage/storageKeys";
 import { getStorage } from "../storage/getStorage";
 import { validateLogin } from "../validators/validateLogin";
 import validateRegister from "../validators/validateRegister";
-import type { IUser, UserCredentials } from "../types/context";
+import type {
+  IUser,
+  IValidationResult,
+  UserCredentials,
+} from "../types/context";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [users, setUsers] = useState<IUser[]>(() => {
     return getStorage(STORAGE_KEYS.USERS, []);
   });
 
-  const [currentUser, setCurrentUser] = useState<IUser | null>(() => {
+  const [currentUser, setCurrentUser] = useState<Omit<
+    IUser,
+    "password"
+  > | null>(() => {
     return getStorage(STORAGE_KEYS.CURRENT_USER, null);
   });
 
   const isAuthenticated = !!currentUser;
 
-  function register(formData: Omit<IUser, "id">) {
-    const isValid = validateRegister(formData, users);
+  function register(formData: Omit<IUser, "id">): IValidationResult {
+    const result = validateRegister(formData, users);
 
-    if (!isValid.isValid) return console.error(isValid.errors);
+    if (!result.isValid) return result;
 
     const newUser: IUser = {
       id: Date.now(),
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
+      ...formData,
     };
 
     setUsers((prevUsers) => [...prevUsers, newUser]);
+
+    return { isValid: true, errors: {} };
   }
 
   useEffect(() => {
     saveStorage(STORAGE_KEYS.USERS, users);
   }, [users]);
 
-  function login(credentials: UserCredentials) {
-    const isValid = validateLogin(credentials, users);
+  function login(credentials: UserCredentials): IValidationResult {
+    const result = validateLogin(credentials, users);
 
-    if (!isValid.isValid) return console.error(isValid.errors);
+    if (!result.isValid) return result;
 
     const foundUser = users.find(
       (user) =>
@@ -49,12 +56,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     if (!foundUser) {
-      return;
+      return { isValid: false, errors: { email: "Usuário não encontrado." } };
     }
 
-    setCurrentUser(foundUser);
+    const { password: _, ...safeUser } = foundUser;
 
-    saveStorage(STORAGE_KEYS.CURRENT_USER, foundUser);
+    setCurrentUser(safeUser);
+    saveStorage(STORAGE_KEYS.CURRENT_USER, safeUser);
+
+    return { isValid: true, errors: {} };
   }
 
   function logout() {

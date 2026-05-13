@@ -17,8 +17,8 @@ export interface IValidationResult {
 
 export interface IContext {
   users: IUser[];
-  register: (formData: Omit<IUser, "id">) => void;
-  login: (credentials: UserCredentials) => void;
+  register: (formData: Omit<IUser, "id">) => IValidationResult;
+  login: (credentials: UserCredentials) => IValidationResult;
   currentUser: Omit<IUser, "password"> | null;
   isAuthenticated: boolean;
   logout: () => void;

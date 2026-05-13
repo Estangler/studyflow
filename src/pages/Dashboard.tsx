@@ -1,3 +1,6 @@
+import { useAuth } from "../hooks/useAuth";
+
 export default function Dashboard() {
-  return <div>Hello Dashboard!</div>;
+  const { currentUser } = useAuth();
+  return <div>Hello {currentUser?.name}</div>;
 }

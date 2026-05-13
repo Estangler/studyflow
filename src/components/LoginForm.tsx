@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const { login, isAuthenticated } = useAuth();
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const [credentials, setCredentials] = useState<UserCredentials>({
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
@@ -15,27 +21,26 @@ export default function LoginForm() {
     }
   }, [isAuthenticated, navigate]);
 
-  const [credentials, setCredentials] = useState<UserCredentials>({
-    email: "",
-    password: "",
-  });
-
   function handleCredentialsInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
     setCredentials((prev) => ({ ...prev, [name]: value }));
   }
 
-  function onSubmit(e: React.SubmitEvent) {
+  function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
-    login(credentials);
+    const result = login(credentials);
+
+    if (result && !result.isValid) {
+      return setErrors(result.errors);
+    }
   }
 
   return (
     <div>
       <h1>Login</h1>
       <main>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
             <p>
               Email <span className="text-red-600">*</span>
@@ -49,6 +54,7 @@ export default function LoginForm() {
               placeholder="Ex: joao@email.com"
               className="border px-2"
             />
+            {errors.email && <p>{errors.email}</p>}
           </label>
           <label>
             <p>
@@ -62,6 +68,7 @@ export default function LoginForm() {
               placeholder="********"
               className="border px-2"
             />
+            {errors.email && <p>{errors.email}</p>}
           </label>
           <button className="w-50 h-10 px-2 py-1 border mt-5 block cursor-pointer hover:opacity-70">
             Entrar
