@@ -1,17 +1,30 @@
-import type { IUser } from "../types/context";
+import type { IUser, IValidationResult } from "../types/context";
 
 export default function validateRegister(
   formData: Omit<IUser, "id">,
   users: IUser[],
-) {
-  if (!formData.name.trim()) return alert("Digite um nome válido.");
+): IValidationResult {
+  const errors: Record<string, string> = {};
 
-  if (!formData.email.trim() || !formData.email.includes("@")) {
-    return alert("Digite um email válido.");
-  } else if (users.some((user) => user.email === formData.email)) {
-    return alert("Email já cadastrado.");
+  const name = formData.name.trim();
+  const email = formData.email.trim();
+  const password = formData.password.trim();
+
+  if (!name) {
+    errors.name = "Digite um nome válido.";
+  }
+  if (!email || !email.includes("@")) {
+    errors.email = "Digite um email válido.";
+  } else if (users.some((user) => user.email === email)) {
+    errors.email = "Esse email já consta no nosso banco de dados.";
   }
 
-  if (!formData.password.trim() || formData.password.length < 8)
-    return alert("Sua senha deve ter 8 ou mais caracteres.");
+  if (!password || password.length < 8) {
+    errors.password = "Senha inválida.";
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
 }

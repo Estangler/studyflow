@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { UserCredentials } from "../types/context";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const [credentials, setCredentials] = useState<UserCredentials>({
     email: "",

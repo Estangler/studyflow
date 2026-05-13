@@ -10,6 +10,11 @@ export interface IUser {
   password: string;
 }
 
+export interface IValidationResult {
+  isValid: boolean;
+  errors: Record<string, string>;
+}
+
 export interface IContext {
   users: IUser[];
   register: (formData: Omit<IUser, "id">) => void;

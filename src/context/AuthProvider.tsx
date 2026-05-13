@@ -19,7 +19,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const isAuthenticated = !!currentUser;
 
   function register(formData: Omit<IUser, "id">) {
-    validateRegister(formData, users);
+    const isValid = validateRegister(formData, users);
+
+    if (!isValid.isValid) return console.error(isValid.errors);
 
     const newUser: IUser = {
       id: Date.now(),
@@ -36,6 +38,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, [users]);
 
   function login(credentials: UserCredentials) {
+    const isValid = validateLogin(credentials, users);
+
+    if (!isValid.isValid) return console.error(isValid.errors);
+
     const foundUser = users.find(
       (user) =>
         user.email === credentials.email &&
@@ -43,12 +49,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     if (!foundUser) {
-      return false;
+      return;
     }
 
     setCurrentUser(foundUser);
+
     saveStorage(STORAGE_KEYS.CURRENT_USER, foundUser);
-    validateLogin(credentials, users);
   }
 
   function logout() {
