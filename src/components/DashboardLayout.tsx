@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
 import { useAuth } from "../hooks/useAuth";
+import KanbanBoard from "../features/kanban/components/KanbanBoard";
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function DashboardLayout() {
   const { currentUser, logout } = useAuth();
   return (
     <div className="flex flex-col h-dvh">
@@ -28,7 +28,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </aside>
 
         <div className="col-span-3  flex flex-col ">
-          <header className="flex justify-between py-2 h-16 border-b border-slate-200 px-6 items-center sticky top-0 z-50 shadow-gray-400 shadow-md/20">
+          <header className="flex justify-between py-2 h-16 border-b border-slate-200 px-6 items-center sticky top-0 z-99 shadow-gray-400 shadow-md/20">
             <h2>Kanban</h2>
             <button
               onClick={logout}
@@ -37,7 +37,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               Sair
             </button>
           </header>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <KanbanBoard />
+          </main>
         </div>
       </div>
     </div>
