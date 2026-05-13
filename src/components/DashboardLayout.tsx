@@ -28,7 +28,7 @@ export default function DashboardLayout() {
         </aside>
 
         <div className="col-span-3  flex flex-col ">
-          <header className="flex justify-between py-2 h-16 border-b border-slate-200 px-6 items-center sticky top-0 z-99 shadow-gray-400 shadow-md/20">
+          <header className="flex justify-between py-2 h-16 border-b border-slate-200 px-6 items-center sticky top-0 z-50 shadow-gray-400 shadow-md/20">
             <h2>Kanban</h2>
             <button
               onClick={logout}

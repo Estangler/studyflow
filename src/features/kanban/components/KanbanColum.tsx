@@ -1,7 +1,16 @@
-import type { IKanbanBoard } from "../types/models";
+import type { IKanbanBoard, Task } from "../types/models";
 import { KANBAN_COLUMNS } from "../constants/constants";
+import TaskCard from "./TaskCard";
 
-export default function KanbanColum({ column }: IKanbanBoard) {
+export default function KanbanColum({
+  column,
+  moveTask,
+  taskList,
+}: IKanbanBoard) {
+  const filteredList: Task[] = taskList.filter(
+    (task) => task.status === column,
+  );
+
   return (
     <div className="bg-slate-100/50 rounded-xl p-4 flex flex-col min-h-125 border border-slate-200">
       <div className="flex justify-between">
@@ -9,10 +18,18 @@ export default function KanbanColum({ column }: IKanbanBoard) {
           {KANBAN_COLUMNS[column]}
         </h3>
         <p className="bg-white border border-slate-200 rounded-full flex items-center justify-center text-xs text-slate-700 w-6 h-6">
-          0
+          {filteredList.length}
         </p>
       </div>
-      <div className="flex flex-col gap-3"></div>
+      <div className="flex flex-col gap-3">
+        {filteredList.length > 0 ? (
+          filteredList.map((task) => (
+            <TaskCard task={task} key={task.id} moveTask={moveTask} />
+          ))
+        ) : (
+          <p className="italic text-center mt-20">Nenhuma tarefa por aqui...</p>
+        )}
+      </div>
     </div>
   );
 }
