@@ -12,6 +12,11 @@ export default function AddTaskModal({
 
   function handleSubimit(e: React.SubmitEvent) {
     e.preventDefault();
+
+    if (!taskTitle.trim()) {
+      return;
+    }
+
     onAddTask(taskTitle);
 
     setTaskTitle("");

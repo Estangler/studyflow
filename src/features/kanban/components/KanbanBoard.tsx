@@ -5,13 +5,6 @@ import AddTaskModal from "./AddTaskModal";
 import KanbanColum from "./KanbanColum";
 import { useState } from "react";
 
-interface INewTask {
-  id: string;
-  title: string;
-  description?: string;
-  status: TaskStatus;
-}
-
 export default function KanbanBoard() {
   const [taskList, setTaskList] = useState<Task[]>(INITIAL_TASKS);
   const [workModal, setWorkModal] = useState<boolean>(true);
@@ -25,9 +18,9 @@ export default function KanbanBoard() {
   }
 
   function onAddTask(title: string) {
-    const newTask: INewTask = {
+    const newTask: Task = {
       id: crypto.randomUUID(),
-      title: title,
+      title: title.trim(),
       description: "",
       status: "TO_STUDY",
     };
