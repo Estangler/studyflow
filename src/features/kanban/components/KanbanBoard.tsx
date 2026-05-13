@@ -7,15 +7,13 @@ import { useState } from "react";
 export default function KanbanBoard() {
   const [taskList, setTaskList] = useState<Task[]>(INITIAL_TASKS);
 
-  function moveTask(id: string, newStatus: TaskStatus) {
-    const updatedTaskList: Task[] = taskList.map((task) => {
-      if (task.id === id) {
-        return { ...task, status: newStatus };
-      }
-      return task;
-    });
-
-    setTaskList(updatedTaskList);
+  function moveTask(taskId: string, nextStatus: TaskStatus) {
+    setTaskList((prevTasks) =>
+      prevTasks.map((task) =>
+        // [🔍 Code Review]: Sempre retorne um novo objeto (Imutabilidade)
+        task.id === taskId ? { ...task, status: nextStatus } : task,
+      ),
+    );
   }
   return (
     <div className="px-4 py-2 grid grid-cols-1 md:grid-cols-3 gap-6 h-full items-start">
