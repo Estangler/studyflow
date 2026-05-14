@@ -10,7 +10,7 @@ export default function AddTaskModal({
 }) {
   const [taskTitle, setTaskTitle] = useState("");
 
-  function handleSubimit(e: React.SubmitEvent) {
+  function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
     if (!taskTitle.trim()) {
@@ -24,7 +24,7 @@ export default function AddTaskModal({
   return (
     <Modal isOpen={workModal}>
       <div>
-        <form onSubmit={handleSubimit}>
+        <form onSubmit={handleSubmit}>
           <label>
             <p>Título</p>
             <input
