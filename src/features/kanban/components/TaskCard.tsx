@@ -26,25 +26,44 @@ export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
   }
 
   return (
-    <>
-      {
-        <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 hover:border-green-600/40 transition-color">
-          <h4 className="text-sm font-semibold text-slate-800">{task.title}</h4>
-          <button onClick={() => onRemoveTask(task.id)}>Delete</button>
+    <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 hover:border-green-600/40 transition-color">
+      <h4 className="text-sm font-semibold text-slate-800">{task.title}</h4>
+      <button onClick={() => onRemoveTask(task.id)}>Delete</button>
+
+      {task.status === "TO_STUDY" && (
+        <button
+          onClick={handleMoveCardRight}
+          className="border border-slate-200 py-1 px-2 rounded-sm"
+        >
+          Avançar
+        </button>
+      )}
+
+      {task.status === "STUDYING" && (
+        <>
           <button
             onClick={handleMoveCardLeft}
             className="border border-slate-200 py-1 px-2 rounded-sm"
           >
-            -move
+            Voltar
           </button>
           <button
             onClick={handleMoveCardRight}
             className="border border-slate-200 py-1 px-2 rounded-sm"
           >
-            move-
+            Avançar
           </button>
-        </div>
-      }
-    </>
+        </>
+      )}
+
+      {task.status === "COMPLETED" && (
+        <button
+          onClick={handleMoveCardLeft}
+          className="border border-slate-200 py-1 px-2 rounded-sm"
+        >
+          Voltar
+        </button>
+      )}
+    </div>
   );
 }

@@ -45,6 +45,7 @@ export default function KanbanBoard() {
         />
       ))}
       <AddTaskModal workModal={workModal} onAddTask={onAddTask} />
+      <button onClick={() => setWorkModal(true)}>Hello Modal</button>
     </div>
   );
 }
