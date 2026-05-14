@@ -68,7 +68,7 @@ export default function LoginForm() {
               placeholder="********"
               className="border px-2"
             />
-            {errors.email && <p>{errors.email}</p>}
+            {errors.password && <p>{errors.password}</p>}
           </label>
           <button className="w-50 h-10 px-2 py-1 border mt-5 block cursor-pointer hover:opacity-70">
             Entrar
