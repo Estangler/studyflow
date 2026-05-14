@@ -8,8 +8,6 @@ interface ITaskCard {
 
 export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
   function handleMoveCardRight() {
-    moveTask(task.id, "TO_STUDY");
-
     if (task.status === "TO_STUDY") {
       moveTask(task.id, "STUDYING");
     }
