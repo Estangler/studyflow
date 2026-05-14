@@ -1,7 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
-import KanbanBoard from "../features/kanban/components/KanbanBoard";
+import type { ReactNode } from "react";
 
-export default function DashboardLayout() {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { currentUser, logout } = useAuth();
   return (
     <div className="flex flex-col h-dvh">
@@ -37,9 +37,7 @@ export default function DashboardLayout() {
               Sair
             </button>
           </header>
-          <main className="flex-1">
-            <KanbanBoard />
-          </main>
+          <main className="flex-1">{children}</main>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import DashboardLayout from "../components/DashboardLayout";
+import KanbanBoard from "../features/kanban/components/KanbanBoard";
 
 export default function Dashboard() {
-  return <DashboardLayout />;
+  return <KanbanBoard />;
 }
