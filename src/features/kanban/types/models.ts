@@ -9,5 +9,6 @@ export interface Task {
 export interface IKanbanBoard {
   column: TaskStatus;
   moveTask: (id: string, newStatus: TaskStatus) => void;
+  onRemoveTask: (id: string) => void;
   taskList: Task[];
 }

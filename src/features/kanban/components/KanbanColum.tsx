@@ -6,6 +6,7 @@ export default function KanbanColum({
   column,
   moveTask,
   taskList,
+  onRemoveTask,
 }: IKanbanBoard) {
   const filteredList: Task[] = taskList.filter(
     (task) => task.status === column,
@@ -24,7 +25,12 @@ export default function KanbanColum({
       <div className="flex flex-col gap-3">
         {filteredList.length > 0 ? (
           filteredList.map((task) => (
-            <TaskCard task={task} key={task.id} moveTask={moveTask} />
+            <TaskCard
+              task={task}
+              key={task.id}
+              moveTask={moveTask}
+              onRemoveTask={onRemoveTask}
+            />
           ))
         ) : (
           <p className="italic text-center mt-20">Nenhuma tarefa por aqui...</p>

@@ -10,6 +10,7 @@ export default function RegisterForm() {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -21,7 +22,13 @@ export default function RegisterForm() {
 
   function onSubmit(e: React.SubmitEvent) {
     e.preventDefault();
-    register(formData);
+
+    const result = register(formData);
+
+    if (result && !result.isValid) {
+      return setErrors(result.errors);
+    }
+
     setFormData({
       name: "",
       email: "",
@@ -29,6 +36,7 @@ export default function RegisterForm() {
     });
   }
 
+  console.log(errors);
   return (
     <div>
       <header>
@@ -50,6 +58,7 @@ export default function RegisterForm() {
               placeholder="Ex: João da Silva Sauro"
               className="border px-2"
             />
+            {errors.name && <p>{errors.name}</p>}
           </label>
 
           <label>
@@ -65,6 +74,7 @@ export default function RegisterForm() {
               placeholder="Ex: joao@email.com"
               className="border px-2"
             />
+            {errors.email && <p>{errors.email}</p>}
           </label>
 
           <label>
@@ -81,14 +91,15 @@ export default function RegisterForm() {
               className="border px-2"
             />
             <p>Mínimo 8 caracteres.</p>
+            {errors.password && <p>{errors.password}</p>}
           </label>
 
           <button className="w-50 h-10 px-2 py-1 border mt-5 block cursor-pointer hover:opacity-70">
             Criar conta
           </button>
         </form>
+        {errors.isValid && <p>Cadastro criado com sucesso.</p>}
       </main>
-      <footer></footer>
     </div>
   );
 }
