@@ -37,7 +37,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="w-full min-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
+    <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
       <header>
         <span className="text-primary hover:underline text-xs">
           <Link to={"/"}>Voltar</Link>

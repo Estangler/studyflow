@@ -38,7 +38,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full min-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
+    <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
       <main>
         <div className="mb-6 flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-primary text-primary-foreground">
