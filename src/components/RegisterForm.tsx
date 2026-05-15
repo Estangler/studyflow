@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import type { IUser } from "../types/context";
+import { Link } from "react-router-dom";
 
 export default function RegisterForm() {
   const { register } = useAuth();
@@ -36,69 +36,79 @@ export default function RegisterForm() {
     });
   }
 
-  console.log(errors);
   return (
-    <div>
+    <div className="w-full min-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
       <header>
-        <h1>Hello Register!</h1>
-        <Link to={"/"}>Faça login.</Link>
+        <span className="text-primary hover:underline text-xs">
+          <Link to={"/"}>Voltar</Link>
+        </span>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Crie sua conta
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Comece a estudar em minutos
+        </p>
       </header>
       <main>
-        <form onSubmit={onSubmit}>
-          <label>
-            <p>
-              Nome completo <span className="text-red-600">*</span>
-            </p>
-            <input
-              type="text"
-              name="name"
-              autoComplete="off"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Ex: João da Silva Sauro"
-              className="border px-2"
-            />
-            {errors.name && <p>{errors.name}</p>}
-          </label>
+        <form onSubmit={onSubmit} className="mt-6 space-y-4">
+          <div>
+            <label className="space-y-1.5">
+              <p className="text-sm font-medium">Nome</p>
+              <input
+                type="text"
+                name="name"
+                autoComplete="off"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Ex: João da Silva Sauro"
+                className={`w-full rounded-md border bg-background px-3 py-2 text-sm transition-all duration-300 focus:outline-none  ${errors.name ? "border-destructive focus:ring-2 focus:ring-destructive" : "border-border focus:ring-2 focus:ring-ring focus:border-primary"}`}
+              />
+              {errors.name && (
+                <p className="text-xs text-destructive">{errors.name}</p>
+              )}
+            </label>
+          </div>
 
-          <label>
-            <p>
-              E-mail <span className="text-red-600">*</span>
-            </p>
-            <input
-              type="email"
-              value={formData.email}
-              autoComplete="off"
-              onChange={handleInputChange}
-              name="email"
-              placeholder="Ex: joao@email.com"
-              className="border px-2"
-            />
-            {errors.email && <p>{errors.email}</p>}
-          </label>
+          <div>
+            <label className="space-y-1.5">
+              <p className="text-sm font-medium">E-mail</p>
+              <input
+                type="email"
+                value={formData.email}
+                autoComplete="off"
+                onChange={handleInputChange}
+                name="email"
+                placeholder="Ex: joao@email.com"
+                className={`w-full rounded-md border bg-background px-3 py-2 text-sm transition-all duration-300 focus:outline-none  ${errors.email ? "border-destructive focus:ring-2 focus:ring-destructive" : "border-border focus:ring-2 focus:ring-ring focus:border-primary"}`}
+              />
+              {errors.email && (
+                <p className="text-xs text-destructive">{errors.email}</p>
+              )}
+            </label>
+          </div>
 
-          <label>
-            <p>
-              Senha <span className="text-red-600">*</span>
-            </p>
-            <input
-              type="password"
-              value={formData.password}
-              autoComplete="off"
-              onChange={handleInputChange}
-              name="password"
-              placeholder="********"
-              className="border px-2"
-            />
-            <p>Mínimo 8 caracteres.</p>
-            {errors.password && <p>{errors.password}</p>}
-          </label>
+          <div>
+            <label className="space-y-1.5">
+              <p className="text-sm font-medium">Senha</p>
+              <input
+                type="password"
+                value={formData.password}
+                autoComplete="off"
+                onChange={handleInputChange}
+                name="password"
+                placeholder="Mínimo 8 caracteres."
+                className={`w-full rounded-md border bg-background px-3 py-2 text-sm transition-all duration-300 focus:outline-none  ${errors.password ? "border-destructive focus:ring-2 focus:ring-destructive" : "border-border focus:ring-2 focus:ring-ring focus:border-primary"}`}
+              />
+              {errors.password && (
+                <p className="text-xs text-destructive">{errors.password}</p>
+              )}
+            </label>
+          </div>
 
-          <button className="w-50 h-10 px-2 py-1 border mt-5 block cursor-pointer hover:opacity-70">
+          <button className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90 active:scale-[0.99] outline-border">
             Criar conta
           </button>
         </form>
-        {errors.isValid && <p>Cadastro criado com sucesso.</p>}
       </main>
     </div>
   );
