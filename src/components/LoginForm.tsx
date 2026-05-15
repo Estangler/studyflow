@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import type { UserCredentials } from "../types/context";
 import { useNavigate } from "react-router-dom";
-import { Sparkles } from "lucide-react";
+import { BowArrow } from "lucide-react";
 
 export default function LoginForm() {
   const { login, isAuthenticated } = useAuth();
@@ -42,7 +42,7 @@ export default function LoginForm() {
       <main>
         <div className="mb-6 flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-primary text-primary-foreground">
-            <Sparkles size={16} />
+            <BowArrow size={16} />
           </div>
           <span className="text-sm font-semibold">StudyFlow</span>
         </div>
