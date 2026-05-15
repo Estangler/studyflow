@@ -17,6 +17,9 @@
   --color-primary-foreground: #f8fafc;
   --color-success: #2dd4bf;
 
+  --color-accent: #252e3d;
+  --color-accent-foreground: #edf2f8;
+
   --color-warning: #f59e0b;
   --color-destructive: #ef4444;
   --color-ring: #818cf8;
