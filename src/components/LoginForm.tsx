@@ -38,7 +38,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
+    <div className="w-full min-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
       <main>
         <div className="mb-6 flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-primary text-primary-foreground">
@@ -53,40 +53,51 @@ export default function LoginForm() {
           Entre para continuar seus estudos.
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <label>
-            <p className="text-sm">Email</p>
-
-            <input
-              type="email"
-              value={credentials.email}
-              name="email"
-              onChange={handleCredentialsInput}
-              placeholder="Ex: joao@email.com"
-              className="w-full border"
-            />
-            {errors.email && <p>{errors.email}</p>}
-          </label>
-          <label>
-            <p className="text-sm">Senha</p>
-            <input
-              type="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleCredentialsInput}
-              placeholder="********"
-              className="border px-2 rounded-sm"
-            />
-            {errors.password && <p>{errors.password}</p>}
-          </label>
-          <button className="w-50 h-8 border p-1 cursor-pointer hover:opacity-70 rounded-sm">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+          <div>
+            <label className="space-y-1.5">
+              <p className="text-sm font-medium">Email</p>
+              <input
+                type="email"
+                value={credentials.email}
+                name="email"
+                onChange={handleCredentialsInput}
+                placeholder="Ex: joao@email.com"
+                className={`w-full rounded-md border bg-background px-3 py-2 text-sm transition-all duration-300 focus:outline-none  ${errors.email ? "border-destructive focus:ring-2 focus:ring-destructive" : "border-border focus:ring-2 focus:ring-ring focus:border-primary"}`}
+              />
+              {errors.email && (
+                <p className="text-xs text-destructive">{errors.email}</p>
+              )}
+            </label>
+          </div>
+          <div>
+            <label className="space-y-1.5">
+              <p className="text-sm">Senha</p>
+              <input
+                type="password"
+                name="password"
+                value={credentials.password}
+                onChange={handleCredentialsInput}
+                placeholder="********"
+                className={`w-full rounded-md border bg-background px-3 py-2 text-sm transition-all duration-300 focus:outline-none  ${errors.password ? "border-destructive focus:ring-2 focus:ring-destructive" : "border-border focus:ring-2 focus:ring-ring focus:border-primary"}`}
+              />
+              {errors.password && (
+                <p className="text-xs text-destructive">{errors.password}</p>
+              )}
+            </label>
+          </div>
+          <button className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90 active:scale-[0.99] outline-border">
             Entrar
           </button>
         </form>
       </main>
       <footer>
-        <p>Ainda não possuí uma conta?</p>
-        <Link to={"/register"}>Faça sua conta!</Link>
+        <p className="mt-5 text-center text-xs text-muted-foreground">
+          Não tem conta?
+          <Link to={"/register"} className="text-primary hover:underline">
+            <span> Criar conta!</span>
+          </Link>
+        </p>
       </footer>
     </div>
   );
