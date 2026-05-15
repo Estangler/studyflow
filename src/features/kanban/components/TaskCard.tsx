@@ -26,7 +26,7 @@ export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 hover:border-green-600/40 transition-color">
+    <button className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 hover:border-green-600/40 transition-color">
       <h4 className="text-sm font-semibold text-slate-800">{task.title}</h4>
       <button onClick={() => onRemoveTask(task.id)}>Delete</button>
 
@@ -64,6 +64,6 @@ export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
           Voltar
         </button>
       )}
-    </div>
+    </button>
   );
 }
