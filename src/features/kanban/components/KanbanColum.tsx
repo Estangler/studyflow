@@ -13,28 +13,26 @@ export default function KanbanColum({
   );
 
   return (
-    <div className="bg-slate-100/50 rounded-xl p-4 flex flex-col min-h-125 border border-slate-200">
-      <div className="flex justify-between">
-        <h3 className="font-bold text-slate-700 mb-4 px-2">
-          {KANBAN_COLUMNS[column]}
-        </h3>
-        <p className="bg-white border border-slate-200 rounded-full flex items-center justify-center text-xs text-slate-700 w-6 h-6">
-          {filteredList.length}
-        </p>
+    <div className="flex flex-col gap-3 rounded-xl border border-border bg-background/50 p-3">
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-current text-muted-foreground" />
+          <span className="text-sm font-semibold text-foreground">
+            {KANBAN_COLUMNS[column]}
+          </span>
+          <span className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+            {filteredList.map((task) => task.status).length}
+          </span>
+        </div>
       </div>
-      <div className="flex flex-col gap-3">
-        {filteredList.length > 0 ? (
-          filteredList.map((task) => (
-            <TaskCard
-              task={task}
-              key={task.id}
-              moveTask={moveTask}
-              onRemoveTask={onRemoveTask}
-            />
-          ))
-        ) : (
-          <p className="italic text-center mt-20">Nenhuma tarefa por aqui...</p>
-        )}
+      <div className="flex flex-col gap-2">
+        {filteredList.map((task) => (
+          <TaskCard
+            task={task}
+            moveTask={moveTask}
+            onRemoveTask={onRemoveTask}
+          />
+        ))}
       </div>
     </div>
   );

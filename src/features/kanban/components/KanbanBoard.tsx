@@ -22,7 +22,8 @@ export default function KanbanBoard() {
       id: crypto.randomUUID(),
       title: title.trim(),
       description: "",
-      status: "TO_STUDY",
+      status: "ONBOARD",
+      priority: "LOW",
     };
 
     setTaskList((prevList) => [...prevList, newTask]);
@@ -34,7 +35,7 @@ export default function KanbanBoard() {
   }
 
   return (
-    <div className="px-4 py-2 grid grid-cols-1 md:grid-cols-3 gap-6 h-full items-start">
+    <div className="px-4 py-2 grid grid-cols-1 md:grid-cols-4 gap-6 h-full items-start">
       {COLUMNS.map((column) => (
         <KanbanColum
           column={column}
@@ -45,7 +46,6 @@ export default function KanbanBoard() {
         />
       ))}
       <AddTaskModal workModal={workModal} onAddTask={onAddTask} />
-      <button onClick={() => setWorkModal(true)}>Hello Modal</button>
     </div>
   );
 }

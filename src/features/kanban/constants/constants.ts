@@ -1,9 +1,15 @@
 import type { TaskStatus } from "../types/models";
 
 export const KANBAN_COLUMNS: Record<TaskStatus, string> = {
-  TO_STUDY: "Para Estudar",
-  STUDYING: "Estudando",
-  COMPLETED: "Concluido",
+  ONBOARD: "Onboard",
+  TODO: "A fazer",
+  PROGRESS: "Progresso",
+  COMPLETED: "Done",
 };
 
-export const COLUMNS: TaskStatus[] = ["TO_STUDY", "STUDYING", "COMPLETED"];
+export const COLUMNS: TaskStatus[] = [
+  "ONBOARD",
+  "TODO",
+  "PROGRESS",
+  "COMPLETED",
+];

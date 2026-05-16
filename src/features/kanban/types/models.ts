@@ -1,9 +1,11 @@
-export type TaskStatus = "TO_STUDY" | "STUDYING" | "COMPLETED";
+export type TaskStatus = "ONBOARD" | "TODO" | "PROGRESS" | "COMPLETED";
+export type TaskPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 export interface Task {
   id: string;
   title: string;
   description?: string;
   status: TaskStatus;
+  priority: TaskPriority;
 }
 
 export interface IKanbanBoard {
