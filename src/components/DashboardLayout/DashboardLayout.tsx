@@ -7,7 +7,7 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import { useAuth } from "../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { useState, type ReactNode } from "react";
 import { NAV_TEMS, type NavItems } from "./constants/constants";
 import AddTaskModal from "../../features/kanban/components/AddTaskModal";
@@ -172,7 +172,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </header>
         <AddTaskModal
           onAddTask={onAddTask}
-          workModal={isAddTaskModalOpen}
+          isAddTaskModalOpen={isAddTaskModalOpen}
           closeAddTaskModal={closeAddTaskModal}
         />
         <main className="flex-1 overflow-y-auto">{children}</main>

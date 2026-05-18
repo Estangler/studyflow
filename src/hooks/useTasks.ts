@@ -5,7 +5,7 @@ export default function useTasks() {
   const context = useContext(TaskContext);
 
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider.");
+    throw new Error("useTasks must be used within a TaskProvider");
   }
 
   return context;

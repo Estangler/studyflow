@@ -56,18 +56,64 @@ export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
         </p>
       </button>
       <div className="flex gap-2 border-t pt-3 border-border">
-        <button
-          onClick={handleMoveCardLeft}
-          className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
-        >
-          <ArrowLeft size={16} />
-        </button>
-        <button
-          onClick={handleMoveCardRight}
-          className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
-        >
-          <ArrowRight size={16} />
-        </button>
+        {task.status === "ONBOARD" ? (
+          <button
+            onClick={handleMoveCardRight}
+            className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
+          >
+            <ArrowRight size={16} />
+          </button>
+        ) : (
+          ""
+        )}
+
+        {task.status === "PROGRESS" ? (
+          <>
+            <button
+              onClick={handleMoveCardLeft}
+              className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
+            >
+              <ArrowLeft size={16} />
+            </button>
+            <button
+              onClick={handleMoveCardRight}
+              className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
+            >
+              <ArrowRight size={16} />
+            </button>
+          </>
+        ) : (
+          ""
+        )}
+        {task.status === "TODO" ? (
+          <>
+            <button
+              onClick={handleMoveCardLeft}
+              className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
+            >
+              <ArrowLeft size={16} />
+            </button>
+            <button
+              onClick={handleMoveCardRight}
+              className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
+            >
+              <ArrowRight size={16} />
+            </button>
+          </>
+        ) : (
+          ""
+        )}
+
+        {task.status === "COMPLETED" ? (
+          <button
+            onClick={handleMoveCardLeft}
+            className="rounded-md p-1.5 text-muted-foreground transition-all duration-300 hover:bg-accent-foreground/10 hover:text-foreground cursor-pointer w-fit"
+          >
+            <ArrowLeft size={16} />
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

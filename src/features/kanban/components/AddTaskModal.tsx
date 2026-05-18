@@ -2,13 +2,13 @@ import Modal from "react-modal";
 import { useState } from "react";
 
 type AddTaskModal = {
-  workModal: boolean;
+  isAddTaskModalOpen: boolean;
   onAddTask: (title: string) => void;
   closeAddTaskModal: () => void;
 };
 
 export default function AddTaskModal({
-  workModal,
+  isAddTaskModalOpen,
   onAddTask,
   closeAddTaskModal,
 }: AddTaskModal) {
@@ -24,21 +24,20 @@ export default function AddTaskModal({
     onAddTask(taskTitle);
 
     setTaskTitle("");
-    closeAddTaskModal();
   }
 
-  function abbortNewTask() {
+  function handleCancel() {
     setTaskTitle("");
     closeAddTaskModal();
   }
   return (
-    <Modal isOpen={workModal}>
+    <Modal isOpen={isAddTaskModalOpen} onRequestClose={closeAddTaskModal}>
       <div>
         <form onSubmit={handleSubmit}>
           <label>
             <p>Título</p>
             <input
-              autoFocus={workModal}
+              autoFocus={isAddTaskModalOpen}
               type="text"
               value={taskTitle}
               placeholder="Ex: Criar Modal"
@@ -46,7 +45,7 @@ export default function AddTaskModal({
               className="w-full p-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-green-600/40 outline-0"
             />
           </label>
-          <button type="submit" onClick={abbortNewTask}>
+          <button type="button" onClick={handleCancel}>
             Cancelar
           </button>
         </form>

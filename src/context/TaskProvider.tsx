@@ -37,7 +37,7 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
   }
 
   function openAddTaskModal() {
-    return setIsAddTaskModalOpen(true);
+    setIsAddTaskModalOpen(true);
   }
   return (
     <TaskContext.Provider
