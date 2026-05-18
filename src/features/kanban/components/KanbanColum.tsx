@@ -28,6 +28,7 @@ export default function KanbanColum({
       <div className="flex flex-col gap-2">
         {filteredList.map((task) => (
           <TaskCard
+            key={task.id}
             task={task}
             moveTask={moveTask}
             onRemoveTask={onRemoveTask}

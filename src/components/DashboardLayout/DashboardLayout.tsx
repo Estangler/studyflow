@@ -10,12 +10,16 @@ import {
 import { useAuth } from "../../hooks/useAuth";
 import { useState, type ReactNode } from "react";
 import { NAV_TEMS, type NavItems } from "./constants/constants";
+import AddTaskModal from "../../features/kanban/components/AddTaskModal";
+import useTasks from "../../hooks/useTasks";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { currentUser, logout } = useAuth();
   const [userMenu, setUserMenu] = useState<boolean>(false);
   const [collapsed, setCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState<NavItems>("dashboard");
+  const { openAddTaskModal, isAddTaskModalOpen, onAddTask, closeAddTaskModal } =
+    useTasks();
 
   return (
     <div className="h-dvh flex">
@@ -150,6 +154,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           )}
         </div>
       </aside>
+
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-14 shrink-0 border-b border-border flex items-center justify-between gap-3 bg-card/40 px-4 backdrop-blur-xl">
           <button
@@ -158,7 +163,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           >
             {collapsed ? <ChevronsRight /> : <ChevronsLeft />}
           </button>
+          <button
+            onClick={openAddTaskModal}
+            className="bg-primary text-foreground rounded-md p-2 text-sm"
+          >
+            AddTask
+          </button>
         </header>
+        <AddTaskModal
+          onAddTask={onAddTask}
+          workModal={isAddTaskModalOpen}
+          closeAddTaskModal={closeAddTaskModal}
+        />
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>

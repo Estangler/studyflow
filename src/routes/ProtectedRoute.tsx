@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import DashboardLayout from "../components/DashboardLayout/DashboardLayout";
+import TaskProvider from "../context/TaskProvider";
 
 export default function ProtectedRoute() {
   const { isAuthenticated } = useAuth();
@@ -9,8 +10,10 @@ export default function ProtectedRoute() {
     return <Navigate to="/" />;
   }
   return (
-    <DashboardLayout>
-      <Outlet />
-    </DashboardLayout>
+    <TaskProvider>
+      <DashboardLayout>
+        <Outlet />
+      </DashboardLayout>
+    </TaskProvider>
   );
 }
