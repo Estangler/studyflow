@@ -1,11 +1,17 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { TaskContext } from "./TaskContext";
-import { INITIAL_TASKS } from "../features/kanban/constants/mockdata";
 import type { Task, TaskStatus } from "../features/kanban/types/models";
+import { saveStorage } from "../storage/saveStorage";
+import { STORAGE_KEYS } from "../storage/storageKeys";
+import { getStorage } from "../storage/getStorage";
 
 export default function TaskProvider({ children }: { children: ReactNode }) {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState<boolean>(false);
-  const [taskList, setTaskList] = useState<Task[]>(INITIAL_TASKS);
+  const [isTaskDetailsModalOpen, setIsTaskDetailsModalOpen] =
+    useState<boolean>(false);
+  const [taskList, setTaskList] = useState<Task[]>(() => {
+    return getStorage(STORAGE_KEYS.TASKS_LIST, []);
+  });
 
   function moveTask(taskId: string, nextStatus: TaskStatus) {
     setTaskList((prevTasks) =>
@@ -15,11 +21,11 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
     );
   }
 
-  function onAddTask(title: string) {
+  function onAddTask(title: string, description: string) {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title: title.trim(),
-      description: "",
+      description: description.trim(),
       status: "ONBOARD",
       priority: "LOW",
     };
@@ -27,6 +33,10 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
     setTaskList((prevList) => [...prevList, newTask]);
     closeAddTaskModal();
   }
+
+  useEffect(() => {
+    saveStorage(STORAGE_KEYS.TASKS_LIST, taskList);
+  }, [taskList]);
 
   function onRemoveTask(id: string) {
     setTaskList((prev) => prev.filter((task) => task.id !== id));
@@ -39,6 +49,15 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
   function openAddTaskModal() {
     setIsAddTaskModalOpen(true);
   }
+
+  function openTaskDetails() {
+    setIsTaskDetailsModalOpen(true);
+  }
+
+  function closeTaskDetails() {
+    setIsTaskDetailsModalOpen(false);
+  }
+
   return (
     <TaskContext.Provider
       value={{
@@ -49,6 +68,9 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
         isAddTaskModalOpen,
         openAddTaskModal,
         closeAddTaskModal,
+        closeTaskDetails,
+        openTaskDetails,
+        isTaskDetailsModalOpen,
       }}
     >
       {children}

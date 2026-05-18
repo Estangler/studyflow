@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import DashboardLayout from "../components/DashboardLayout/DashboardLayout";
 import TaskProvider from "../context/TaskProvider";
 

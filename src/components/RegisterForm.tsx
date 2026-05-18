@@ -1,4 +1,4 @@
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { useState } from "react";
 import type { IUser } from "../types/context";
 import { Link } from "react-router-dom";

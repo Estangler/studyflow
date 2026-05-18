@@ -18,9 +18,12 @@ export interface IKanbanBoard {
 export interface ITasksContext {
   taskList: Task[];
   moveTask: (taskId: string, nextStatus: TaskStatus) => void;
-  onAddTask: (title: string) => void;
+  onAddTask: (title: string, description: string) => void;
   onRemoveTask: (id: string) => void;
   isAddTaskModalOpen: boolean;
   openAddTaskModal: () => void;
   closeAddTaskModal: () => void;
+  closeTaskDetails: () => void;
+  openTaskDetails: () => void;
+  isTaskDetailsModalOpen: boolean;
 }

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import type { UserCredentials } from "../types/context";
 import { useNavigate } from "react-router-dom";
