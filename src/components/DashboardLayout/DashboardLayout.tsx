@@ -21,6 +21,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { openAddTaskModal, isAddTaskModalOpen, onAddTask, closeAddTaskModal } =
     useTasks();
 
+  const initials =
+    (currentUser?.name ?? "")
+      .split(" ")
+      .filter(Boolean) // remove espaços duplos
+      .map((word) => word[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || "?"; // fallback se resultado for string vazia
+
   return (
     <div className="h-dvh flex">
       <aside
@@ -92,7 +101,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-primary to-success text-xs font-semibold text-primary-foreground cursor-pointer hover:bg-accent-foreground/10 hover:text-accent-foreground"
                 onClick={() => setUserMenu(!userMenu)}
               >
-                AD
+                {initials}
               </button>
               {userMenu && (
                 <div className="absolute bottom-full left-0 right-0 z-50 mb-3 overflow-hidden rounded-md border border-border bg-popover shadow-xl">
