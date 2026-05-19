@@ -21,6 +21,17 @@ O projeto foi construído com foco em arquitetura orientada a domínio, separaç
 - **Dashboard responsivo** — sidebar colapsável com navegação entre seções
 - **Persistência local** — dados mantidos via localStorage entre sessões
 ---
+
+
+## Imagens
+# AuthSection
+> <img width="1919" height="972" alt="image" src="https://github.com/user-attachments/assets/a0aff74a-11b7-4c0c-8d53-d4bc12f5b9bd" />
+> <img width="1919" height="971" alt="image" src="https://github.com/user-attachments/assets/aec354a4-27ac-4ccc-ab96-35736cd44252" />
+
+# Kanban
+> <img width="1919" height="975" alt="image" src="https://github.com/user-attachments/assets/1f338eff-d4aa-4691-af92-18c8bfbf6552" />
+> <img width="1919" height="971" alt="image" src="https://github.com/user-attachments/assets/58348f8f-66bf-43b9-b303-f5f62b9c705f" />
+
  
 ## Stack
  
