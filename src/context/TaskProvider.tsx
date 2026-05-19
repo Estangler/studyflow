@@ -41,6 +41,7 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
 
   function onRemoveTask(id: string) {
     setTaskList((prev) => prev.filter((task) => task.id !== id));
+    setSelectedTaskId(null);
   }
 
   function closeAddTaskModal() {

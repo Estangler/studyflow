@@ -18,7 +18,7 @@ export default function TaskDetailsModal() {
       }
       className={"p-10 bg-card/50 h-full md:w-120 border border-border"}
     >
-      {<p>{task?.title}</p>}
+      <p>{task?.title}</p>
     </Modal>
   );
 }
