@@ -15,10 +15,17 @@ export interface IKanbanBoard {
   taskList: Task[];
 }
 
+export type NewTaskFormData = {
+  title: string;
+  description: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+};
+
 export interface ITasksContext {
   taskList: Task[];
   moveTask: (taskId: string, nextStatus: TaskStatus) => void;
-  onAddTask: (title: string, description: string) => void;
+  onAddTask: (newTaskData: Omit<Task, "id">) => void;
   onRemoveTask: (id: string) => void;
   isAddTaskModalOpen: boolean;
   openAddTaskModal: () => void;

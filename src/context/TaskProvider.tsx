@@ -21,13 +21,13 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
     );
   }
 
-  function onAddTask(title: string, description: string) {
+  function onAddTask(newTaskData: Omit<Task, "id">) {
     const newTask: Task = {
       id: crypto.randomUUID(),
-      title: title.trim(),
-      description: description.trim(),
-      status: "ONBOARD",
-      priority: "LOW",
+      title: newTaskData.title.trim(),
+      description: newTaskData.description.trim(),
+      status: newTaskData.status,
+      priority: newTaskData.priority,
     };
 
     setTaskList((prevList) => [...prevList, newTask]);
