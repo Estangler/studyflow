@@ -1,7 +1,13 @@
 import Modal from "react-modal";
 import { useState, type ChangeEvent } from "react";
 import type { NewTaskFormData, Task } from "../types/models";
-import { INITIAL_NEW_TASK_FORM } from "../constants/constants";
+import {
+  INITIAL_NEW_TASK_FORM,
+  KANBAN_COLUMNS,
+  PRIORITY_OPTIONS,
+  STATUS_OPTIONS,
+  TASK_PRIORITIES,
+} from "../constants/constants";
 
 type AddTaskModal = {
   isAddTaskModalOpen: boolean;
@@ -44,21 +50,11 @@ export default function AddTaskModal({
       priority,
     });
 
-    setNewTaskData({
-      title: "",
-      description: "",
-      status: "ONBOARD",
-      priority: "LOW",
-    });
+    setNewTaskData(INITIAL_NEW_TASK_FORM);
   }
 
   function handleCancel() {
-    setNewTaskData({
-      title: "",
-      description: "",
-      status: "ONBOARD",
-      priority: "LOW",
-    });
+    setNewTaskData(INITIAL_NEW_TASK_FORM);
     closeAddTaskModal();
   }
 
@@ -111,10 +107,11 @@ export default function AddTaskModal({
                 name="priority"
                 onChange={handleInputChange}
               >
-                <option value="LOW">Baixa</option>
-                <option value="MEDIUM">Media</option>
-                <option value="HIGH">Alta</option>
-                <option value="URGENT">Urgente</option>
+                {PRIORITY_OPTIONS.map((priority) => (
+                  <option key={priority} value={priority}>
+                    {TASK_PRIORITIES[priority]}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -126,10 +123,11 @@ export default function AddTaskModal({
                 name="status"
                 onChange={handleInputChange}
               >
-                <option value="ONBOARD">Onboard</option>
-                <option value="TODO">A fazer</option>
-                <option value="PROGRESS">Progresso</option>
-                <option value="COMPLETED">Done</option>
+                {STATUS_OPTIONS.map((status) => (
+                  <option key={status} value={status}>
+                    {KANBAN_COLUMNS[status]}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
