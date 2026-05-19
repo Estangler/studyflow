@@ -104,7 +104,6 @@ O projeto está em desenvolvimento ativo. Próximas implementações planejadas:
  
 - [ ] Edição de tarefas (título, descrição e prioridade)
 - [ ] Loading, error e empty states em todas as listagens
-- [ ] Deploy em produção
 ---
  
 ## Autor
