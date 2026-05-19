@@ -1,7 +1,6 @@
 import useTasks from "../../../hooks/useTasks";
 import type { Task, TaskStatus } from "../types/models";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
-import TaskDetailsModal from "./TaskDetailsModal";
 
 interface ITaskCard {
   task: Task;
@@ -10,7 +9,8 @@ interface ITaskCard {
 }
 
 export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
-  const { openTaskDetails } = useTasks();
+  const { onSelectTaskId } = useTasks();
+
   function handleMoveCardRight() {
     if (task.status === "ONBOARD") {
       moveTask(task.id, "TODO");
@@ -50,7 +50,7 @@ export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
       </div>
       <button
         className="hover:bg-accent-foreground/10 rounded-md p-1.5 transition-all duration-300 h-full"
-        onClick={() => openTaskDetails()}
+        onClick={() => onSelectTaskId(task.id)}
       >
         <div className="flex justify-between items-center space-y-1.5">
           <p className="text-sm font-medium leading-snug text-foreground">
@@ -121,7 +121,6 @@ export default function TaskCard({ task, moveTask, onRemoveTask }: ITaskCard) {
           ""
         )}
       </div>
-      <TaskDetailsModal task={task} />
     </div>
   );
 }

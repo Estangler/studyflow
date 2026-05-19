@@ -1,4 +1,4 @@
-import type { TaskStatus } from "../types/models";
+import type { NewTaskFormData, TaskStatus } from "../types/models";
 
 export const KANBAN_COLUMNS: Record<TaskStatus, string> = {
   ONBOARD: "Onboard",
@@ -13,3 +13,10 @@ export const COLUMNS: TaskStatus[] = [
   "PROGRESS",
   "COMPLETED",
 ];
+
+export const INITIAL_NEW_TASK_FORM: NewTaskFormData = {
+  title: "",
+  description: "",
+  status: "ONBOARD",
+  priority: "LOW",
+};

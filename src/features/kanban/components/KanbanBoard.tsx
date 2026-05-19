@@ -1,6 +1,7 @@
 import useTasks from "../../../hooks/useTasks";
 import { COLUMNS } from "../constants/constants";
 import KanbanColum from "./KanbanColum";
+import TaskDetailsModal from "./TaskDetailsModal";
 
 export default function KanbanBoard() {
   const { taskList, moveTask, onRemoveTask } = useTasks();
@@ -15,6 +16,7 @@ export default function KanbanBoard() {
           onRemoveTask={onRemoveTask}
         />
       ))}
+      <TaskDetailsModal />
     </div>
   );
 }

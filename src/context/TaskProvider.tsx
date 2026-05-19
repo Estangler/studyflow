@@ -7,8 +7,9 @@ import { getStorage } from "../storage/getStorage";
 
 export default function TaskProvider({ children }: { children: ReactNode }) {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState<boolean>(false);
-  const [isTaskDetailsModalOpen, setIsTaskDetailsModalOpen] =
-    useState<boolean>(false);
+
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
   const [taskList, setTaskList] = useState<Task[]>(() => {
     return getStorage(STORAGE_KEYS.TASKS_LIST, []);
   });
@@ -25,7 +26,7 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title: newTaskData.title.trim(),
-      description: newTaskData.description.trim(),
+      description: newTaskData.description,
       status: newTaskData.status,
       priority: newTaskData.priority,
     };
@@ -50,13 +51,9 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
     setIsAddTaskModalOpen(true);
   }
 
-  function openTaskDetails() {
-    setIsTaskDetailsModalOpen(true);
-  }
-
-  function closeTaskDetails() {
-    setIsTaskDetailsModalOpen(false);
-  }
+  const onSelectTaskId = (id: string | null) => {
+    setSelectedTaskId(id);
+  };
 
   return (
     <TaskContext.Provider
@@ -68,9 +65,8 @@ export default function TaskProvider({ children }: { children: ReactNode }) {
         isAddTaskModalOpen,
         openAddTaskModal,
         closeAddTaskModal,
-        closeTaskDetails,
-        openTaskDetails,
-        isTaskDetailsModalOpen,
+        selectedTaskId,
+        onSelectTaskId,
       }}
     >
       {children}

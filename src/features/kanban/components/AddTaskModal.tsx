@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import { useState, type ChangeEvent } from "react";
 import type { NewTaskFormData, Task } from "../types/models";
+import { INITIAL_NEW_TASK_FORM } from "../constants/constants";
 
 type AddTaskModal = {
   isAddTaskModalOpen: boolean;
@@ -13,12 +14,9 @@ export default function AddTaskModal({
   onAddTask,
   closeAddTaskModal,
 }: AddTaskModal) {
-  const [newTaskData, setNewTaskData] = useState<NewTaskFormData>({
-    title: "",
-    description: "",
-    status: "ONBOARD",
-    priority: "LOW",
-  });
+  const [newTaskData, setNewTaskData] = useState<NewTaskFormData>(
+    INITIAL_NEW_TASK_FORM,
+  );
 
   function handleInputChange(
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,

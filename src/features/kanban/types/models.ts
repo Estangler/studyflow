@@ -21,16 +21,3 @@ export type NewTaskFormData = {
   status: TaskStatus;
   priority: TaskPriority;
 };
-
-export interface ITasksContext {
-  taskList: Task[];
-  moveTask: (taskId: string, nextStatus: TaskStatus) => void;
-  onAddTask: (newTaskData: Omit<Task, "id">) => void;
-  onRemoveTask: (id: string) => void;
-  isAddTaskModalOpen: boolean;
-  openAddTaskModal: () => void;
-  closeAddTaskModal: () => void;
-  closeTaskDetails: () => void;
-  openTaskDetails: () => void;
-  isTaskDetailsModalOpen: boolean;
-}
