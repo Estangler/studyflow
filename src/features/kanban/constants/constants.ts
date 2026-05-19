@@ -31,7 +31,7 @@ export const PRIORITY_OPTIONS: TaskPriority[] = [
   "HIGH",
   "URGENT",
 ];
-export const STATUS_OPTIONS: TaskStatus[] = COLUMNS; // reutiliza COLUMNS
+export const STATUS_OPTIONS: TaskStatus[] = COLUMNS;
 
 export const INITIAL_NEW_TASK_FORM: NewTaskFormData = {
   title: "",
